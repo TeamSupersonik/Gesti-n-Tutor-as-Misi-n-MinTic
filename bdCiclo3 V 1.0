@@ -1,0 +1,48 @@
+create database dbCiclo3;
+use dbCiclo3;
+
+--Tabla dedicada a relacionar a el Tripulante con los ciclos
+CREATE TABLE Ciclos (
+  Codigo_cic int1,
+  Descripcion varchar(30),
+  PRIMARY KEY (Codigo_cic)
+);
+
+-- tabla con la info para el logeo de ususarios
+  create table Login (
+	username varchar(30) primary key,
+	pass varchar(30)
+);
+
+--Tabla para defirnir estudios de Tripulante
+CREATE TABLE Estudios (
+  Codigo_est int1,
+  Descripcion varchar(30),
+  PRIMARY KEY (Codigo_est)
+);
+
+--Tabla para registrar y visualizar la informacion de los tripulantes
+CREATE TABLE Tripulantes (
+  Id integer primary key,
+  username varchar(30),
+  Apellidos varchar(30),
+  Nombres varchar(30),
+  Correo varchar(30),
+  Codigo_est int1,
+  codigo_cic int1,
+  foreign key (username) references Login(username),
+  foreign key (Codigo_est) references Estudios(Codigo_est),
+  foreign key (Codigo_cic) references Ciclos(Codigo_cic)
+  );
+  
+  
+  -- Tabla para relacionar todas las tutorias en total por tripulantes, se puede buscar por id o por el username del tripulante
+  CREATE TABLE Tutorias (
+	Id integer,
+  username varchar(30),
+	Codigo_Tuto integer,
+  Des_Tuto varchar(100),
+  primary key (Codigo_tuto),
+  foreign key (Id) references Tripulantes(Id),
+  foreign key (username) references Tripulantes(username)
+  );
