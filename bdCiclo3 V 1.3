@@ -1,0 +1,69 @@
+create database dbCiclo3;
+use dbCiclo3;
+
+CREATE TABLE Ciclos (
+  Codigo_cic int1,
+  Descripcion varchar(30),
+  PRIMARY KEY (Codigo_cic)
+);
+
+  create table Login (
+	usernameId integer primary key,
+	username varchar(30),
+	pass varchar(30)
+);
+
+CREATE TABLE Estudios (
+  Codigo_est int1,
+  Descripcion varchar(30),
+  PRIMARY KEY (Codigo_est)
+);
+
+CREATE table Email(
+	correo varchar(40)primary key,
+    usernameId integer,
+    foreign key (usernameId) references Login(usernameId)
+); 
+
+CREATE TABLE Grupo(
+	grupo_id int2 primary key,
+    descripcion varchar(30)
+);
+
+CREATE TABLE Docentes(
+	docenteId int2 primary key,
+    apellido1 varchar(30),
+    apellido2 varchar(30),
+    nombres varchar (30),
+    usernameId integer,
+    correo varchar(40),
+    foreign key (usernameId) references Login(usernameId),
+    foreign key (correo) references Email(correo)
+);
+
+CREATE TABLE Tripulantes (
+  TripuId integer primary key,
+  Apellido1 varchar(30),
+  Apellido2 varchar(30),
+  Nombres varchar(30),
+  usernameId integer,
+  Correo varchar(40),
+  Codigo_est int1,
+  codigo_cic int1,
+  grupo_id int2,
+  foreign key (usernameId) references Login(usernameId),
+  foreign key (Codigo_est) references Estudios(Codigo_est),
+  foreign key (Codigo_cic) references Ciclos(Codigo_cic),
+  foreign key (correo) references Email(correo),
+  foreign key (grupo_id) references Grupo(grupo_id)
+  );
+
+  CREATE TABLE Tutorias (
+	TutoriaId integer primary key,
+	tripuId integer,
+    docenteId int2,
+    Descripcion varchar(100),
+    foreign key (tripuId) references Tripulantes(tripuId),
+    foreign key (docenteId) references Docentes(docenteId)
+  );
+  
